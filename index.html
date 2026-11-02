@@ -311,6 +311,13 @@ footer:hover .big{-webkit-text-stroke-color:rgba(224,164,88,.5)}
 .phone span{display:block;color:var(--amber2);font-size:.85rem;margin-top:6px}
 @media (max-width:380px){.phone{padding:20px 18px;gap:14px}.phone .pi{width:54px;height:54px}}
 .ci address{font-style:normal;line-height:1.5;font-size:.95rem}
+
+/* ===== ДВА ТЕЛЕФОНА ===== */
+.phones{display:grid;gap:12px}
+.phones .phone{margin:0}
+.phone.alt{padding:18px 22px}
+.phone.alt .pi{width:52px;height:52px;font-size:1.15rem}
+.phone.alt b{font-size:clamp(1.6rem,5.4vw,2.1rem)}
 </style>
 </head>
 <body>
@@ -337,7 +344,7 @@ footer:hover .big{-webkit-text-stroke-color:rgba(224,164,88,.5)}
   <div class="container hi">
     <div class="badge"><i class="fa-solid fa-location-dot"></i> 28 км от Бреста · сосновый лес</div>
     <h1><span class="l"><span>Тишина</span></span><span class="l"><span>в <em>сосновом</em></span></span><span class="l"><span>лесу</span></span></h1>
-    <p class="lead">Агроусадьба «Хвоинка»: бревенчатый дом, баня с ночлегом, гриль-зона и банкетный зал до 40 гостей. Место, где хочется выключить телефон.</p>
+    <p class="lead">Агроусадьба «Хвоинка»: гостевой дом с балконом, баня с ночлегом, гриль-зона и бревенчатый банкетный зал до 40 гостей. Место, где хочется выключить телефон.</p>
     <div class="acts"><a href="#about" class="btn btn-p"><i class="fa-solid fa-house-chimney"></i> Смотреть усадьбу</a><a href="#booking" class="btn btn-g"><i class="fa-regular fa-calendar-check"></i> Узнать свободные даты</a></div>
     <div class="meta"><div><i class="fa-solid fa-users"></i> до 5 человек на проживании</div><div><i class="fa-solid fa-hot-tub-person"></i> 3 часа бани включено</div><div><i class="fa-solid fa-champagne-glasses"></i> банкеты до 40 гостей</div></div>
   </div>
@@ -356,8 +363,8 @@ footer:hover .big{-webkit-text-stroke-color:rgba(224,164,88,.5)}
     </div>
     <p class="hint reveal"><i class="fa-regular fa-hand-pointer"></i> Нажмите на карточку, чтобы посмотреть фото</p>
     <div class="grid">
-      <article class="card ft w reveal" data-photos="media/bedroom.jpg|Мансардная спальня~media/balcony.jpg|Балкон с видом"><img src="media/house.jpg" alt="Гостевой дом усадьбы" loading="lazy"><span class="tag">Проживание</span><div class="in"><div class="ico"><i class="fa-solid fa-bed"></i></div><h3>Бревенчатый дом</h3><p>Тёплый дом с мансардными спальнями, балконом и камином — до 5 гостей.</p></div></article>
-      <article class="card ft w reveal" style="--d:.1s" data-photos="media/banquet.jpg|Банкетный зал до 40 гостей"><img src="media/banquet-set.jpg" alt="Сервировка банкетного стола" loading="lazy"><div class="in"><div class="ico"><i class="fa-solid fa-champagne-glasses"></i></div><h3>Банкетный зал</h3><p>Деревянные балки, мягкий свет и длинный стол — до 40 гостей.</p></div></article>
+      <article class="card ft w reveal" data-photos="media/bedroom.jpg|Мансардная спальня"><img src="media/balcony.jpg" alt="Гостевой дом: вид с балкона" loading="lazy"><span class="tag">Проживание</span><div class="in"><div class="ico"><i class="fa-solid fa-bed"></i></div><h3>Гостевой дом</h3><p>Уютный дом с мансардными спальнями и балконом — до 5 гостей.</p></div></article>
+      <article class="card ft w reveal" style="--d:.1s" data-photos="media/banquet.jpg|Банкетный зал до 40 гостей~media/banquet-set.jpg|Сервировка банкетного стола"><img src="media/house.jpg" alt="Бревенчатый дом — банкетный зал" loading="lazy"><span class="tag">Банкеты</span><div class="in"><div class="ico"><i class="fa-solid fa-champagne-glasses"></i></div><h3>Банкетный зал</h3><p>Бревенчатый дом с деревянными балками, мягким светом и длинным столом — до 40 гостей.</p></div></article>
       <article class="card ft reveal" data-photos="media/grill-inside.jpg|Мангальная зона внутри~media/swing.jpg|Беседка с качелями"><img src="media/grill-gazebo.jpg" alt="Беседка с мангалом" loading="lazy"><div class="in"><div class="ico"><i class="fa-solid fa-fire-burner"></i></div><h3>Гриль-зона</h3><p>Беседка с кирпичной печью и мангалом.</p></div></article>
       <article class="card ft reveal" style="--d:.1s"><img src="media/fireplace.jpg" alt="Камин в доме" loading="lazy"><div class="in"><div class="ico"><i class="fa-solid fa-fire"></i></div><h3>Камин</h3><p>Кирпичный камин — главный герой вечера.</p></div></article>
       <article class="card ft reveal" style="--d:.2s" data-photos="media/yard.jpg|Двор усадьбы"><img src="media/pines.jpg" alt="Дом среди сосен" loading="lazy"><div class="in"><div class="ico"><i class="fa-solid fa-tree"></i></div><h3>Сосновый лес</h3><p>Чистый воздух и тишина прямо у порога.</p></div></article>
@@ -394,7 +401,10 @@ footer:hover .big{-webkit-text-stroke-color:rgba(224,164,88,.5)}
     <div class="booking" id="booking">
       <div class="bi2 reveal"><span class="eyebrow">Бронирование</span><h3>Выберите даты — мы <em>сразу перезвоним</em></h3><p class="lead">Оставьте заявку, и мы подтвердим наличие дат и подберём формат отдыха.</p>
         <ul><li><i class="fa-solid fa-bolt"></i>Ответим в течение 15 минут</li><li><i class="fa-solid fa-shield-halved"></i>Без предоплаты на этапе заявки</li><li><i class="fa-solid fa-spa"></i>Баня и гриль-зона уже в тарифе</li></ul>
-        <a class="phone" href="tel:+375297226744" style="margin-top:28px"><span class="pi"><i class="fa-solid fa-phone-volume"></i></span><div><small>Быстрее по телефону</small><b>+375 29 722-67-44</b></div></a></div>
+        <div class="phones" style="margin-top:28px">
+          <a class="phone" href="tel:+375297226744"><span class="pi"><i class="fa-solid fa-phone-volume"></i></span><div><small>Быстрее по телефону</small><b>+375 29 722-67-44</b></div></a>
+          <a class="phone alt" href="tel:+375297286031"><span class="pi"><i class="fa-solid fa-phone"></i></span><div><small>Второй номер</small><b>+375 29 728-60-31</b></div></a>
+        </div></div>
       <form class="fc reveal" id="form" novalidate style="--d:.15s">
         <div class="fr"><div class="field"><label for="din">Заезд</label><input type="date" id="din"><span class="err">Выберите дату заезда</span></div><div class="field"><label for="dout">Выезд</label><input type="date" id="dout"><span class="err">Выезд должен быть позже заезда</span></div></div>
         <div class="field"><label>Количество гостей (макс. 5)</label><div class="guests"><button type="button" id="minus" aria-label="Меньше">−</button><output id="gout">2</output><button type="button" id="plus" aria-label="Больше">+</button></div></div>
@@ -429,10 +439,16 @@ footer:hover .big{-webkit-text-stroke-color:rgba(224,164,88,.5)}
     <div class="cg">
       <div class="map reveal"><iframe title="Карта: окрестности Бреста" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=23.45%2C51.98%2C24.05%2C52.22&layer=mapnik"></iframe><div class="pin"><i class="fa-solid fa-location-dot"></i><div><b>Усадьба «Хвоинка»</b><br><small style="color:var(--muted)">д. Дубица, ул. Чигуночная, 6 · 28 км трассы Брест — Томашевка</small></div></div></div>
       <div class="reveal" style="--d:.15s">
-        <a class="phone" href="tel:+375297226744" aria-label="Позвонить +375 29 722-67-44">
-          <span class="pi"><i class="fa-solid fa-phone-volume"></i></span>
-          <div><small>Позвоните нам — ответим сразу</small><b>+375 29 722-67-44</b><span>Ирина · нажмите, чтобы позвонить</span></div>
-        </a>
+        <div class="phones" style="margin-bottom:14px">
+          <a class="phone" href="tel:+375297226744" aria-label="Позвонить +375 29 722-67-44">
+            <span class="pi"><i class="fa-solid fa-phone-volume"></i></span>
+            <div><small>Позвоните нам — ответим сразу</small><b>+375 29 722-67-44</b><span>Ирина · нажмите, чтобы позвонить</span></div>
+          </a>
+          <a class="phone alt" href="tel:+375297286031" aria-label="Позвонить +375 29 728-60-31">
+            <span class="pi"><i class="fa-solid fa-phone"></i></span>
+            <div><small>Второй номер</small><b>+375 29 728-60-31</b><span>нажмите, чтобы позвонить</span></div>
+          </a>
+        </div>
         <div class="cl">
           <a class="ci" href="https://www.instagram.com/khvoyinka_usadba" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i><div><small>Instagram</small>@khvoyinka_usadba</div></a>
           <div class="ci"><i class="fa-solid fa-route"></i><div><small>Адрес</small>
