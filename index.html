@@ -224,6 +224,93 @@ footer:hover .big{-webkit-text-stroke-color:rgba(224,164,88,.5)}
 .review{flex-basis:88%;padding:28px}.review p{font-size:1.25rem}.arrows{display:none}.stats{gap:10px}
 .lb .pv,.lb .nx{top:auto;bottom:calc(60px + env(safe-area-inset-bottom))}.band{min-height:70svh}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}.hero h1 .l span{transform:none}}
+
+/* ===== ЦЕНЫ: стекло + свечение + курсорный «прожектор» ===== */
+@property --a{syntax:'<angle>';inherits:false;initial-value:0deg}
+
+.tariff{
+  --mx:50%;--my:0%;
+  position:relative;padding:36px 30px 30px;gap:22px;border-radius:28px;
+  background:
+    radial-gradient(260px 160px at 100% 0%,rgba(127,176,143,.18),transparent 70%),
+    linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.025) 60%);
+  border:1px solid rgba(255,255,255,.14);
+  backdrop-filter:blur(22px) saturate(150%);-webkit-backdrop-filter:blur(22px) saturate(150%);
+  box-shadow:0 30px 60px -30px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.18);
+  transition:transform .6s var(--ease),box-shadow .6s var(--ease),border-color .4s;
+}
+.tariff::before{
+  content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;
+  background:radial-gradient(380px circle at var(--mx) var(--my),rgba(243,201,135,.22),transparent 60%);
+  opacity:0;transition:opacity .5s;
+}
+.tariff:hover{
+  transform:translateY(-10px);border-color:rgba(243,201,135,.5);
+  box-shadow:0 40px 80px -30px rgba(0,0,0,.8),0 0 60px -14px rgba(224,164,88,.45),inset 0 1px 0 rgba(255,255,255,.25);
+}
+.tariff:hover::before{opacity:1}
+
+.tariff .tn i{
+  width:42px;height:42px;border-radius:14px;display:grid;place-items:center;font-size:1rem;
+  color:var(--amber2);background:rgba(224,164,88,.12);border:1px solid rgba(224,164,88,.3);
+  transition:transform .6s var(--ease),background .4s;
+}
+.tariff:hover .tn i{transform:rotate(-12deg) scale(1.12);background:rgba(224,164,88,.25)}
+
+.price{
+  background:linear-gradient(180deg,#fff 0%,var(--amber2) 55%,var(--amber) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 6px 24px rgba(224,164,88,.25));
+}
+.price small{-webkit-text-fill-color:var(--muted);color:var(--muted)}
+.price.t{background:linear-gradient(120deg,var(--amber2),#fff 50%,var(--amber2));
+  -webkit-background-clip:text;background-clip:text}
+
+.tariff li{align-items:center;padding-bottom:12px;border-bottom:1px dashed rgba(255,255,255,.1)}
+.tariff li:last-child{border-bottom:0;padding-bottom:0}
+.tariff li i{margin-top:0;font-size:.55rem;color:var(--amber);filter:drop-shadow(0 0 6px rgba(224,164,88,.8))}
+
+.tariff.hot{
+  border:1.5px solid transparent;
+  background:
+    linear-gradient(160deg,#2a2314,#17160f 55%,#131a14) padding-box,
+    conic-gradient(from var(--a),#e0a458,#7fb08f,#f3c987,#3f6b4f,#e0a458) border-box;
+  animation:spin 7s linear infinite;
+  box-shadow:0 40px 90px -30px rgba(224,164,88,.45),0 0 70px -20px rgba(224,164,88,.5);
+  transform:translateY(-8px);
+}
+.tariff.hot:hover{transform:translateY(-18px)}
+@keyframes spin{to{--a:360deg}}
+.tariff.hot::after{box-shadow:0 8px 24px -6px rgba(224,164,88,.8)}
+
+.tariff .btn{margin-top:4px}
+
+@media (max-width:1024px){.tariff.hot{transform:none}.tariff.hot:hover{transform:translateY(-8px)}}
+@media (hover:none){.tariff:hover{transform:none}}
+@media (prefers-reduced-motion:reduce){.tariff.hot{animation:none}}
+
+/* ===== БЛОК С ТЕЛЕФОНОМ ===== */
+.phone{
+  position:relative;display:flex;align-items:center;gap:20px;padding:24px 26px;margin-bottom:14px;
+  border-radius:26px;overflow:hidden;isolation:isolate;
+  background:linear-gradient(135deg,rgba(63,107,79,.45),rgba(224,164,88,.16));
+  border:1px solid rgba(243,201,135,.4);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  box-shadow:0 30px 60px -30px rgba(0,0,0,.7),0 0 50px -18px rgba(224,164,88,.5);
+  transition:transform .5s var(--ease),box-shadow .5s;
+}
+.phone::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.14) 50%,transparent 70%);
+  transform:translateX(-120%);transition:transform .9s var(--ease)}
+.phone:hover{transform:translateY(-4px)}.phone:hover::before{transform:translateX(120%)}
+.phone .pi{position:relative;flex:none;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;
+  font-size:1.4rem;color:#1c1308;background:linear-gradient(135deg,var(--amber2),var(--amber))}
+.phone .pi::after{content:"";position:absolute;inset:-8px;border-radius:50%;border:1px solid rgba(243,201,135,.6);animation:pulse 2.2s ease-out infinite}
+.phone small{display:block;color:#cdd3ca;font-size:.82rem;margin-bottom:4px}
+.phone b{display:block;font-family:var(--fd);font-weight:600;font-size:clamp(1.9rem,6.4vw,2.7rem);line-height:1.05;color:#fff;letter-spacing:.01em;white-space:nowrap}
+.phone span{display:block;color:var(--amber2);font-size:.85rem;margin-top:6px}
+@media (max-width:380px){.phone{padding:20px 18px;gap:14px}.phone .pi{width:54px;height:54px}}
+.ci address{font-style:normal;line-height:1.5;font-size:.95rem}
 </style>
 </head>
 <body>
@@ -292,7 +379,7 @@ footer:hover .big{-webkit-text-stroke-color:rgba(224,164,88,.5)}
   </div>
 </section>
 
-<!-- PRICING + BOOKING: видео 3 как фон -->
+<!-- PRICING + BOOKING -->
 <section class="pricing" id="pricing">
   <div class="container" style="position:relative;z-index:2">
     <div class="sh reveal"><span class="num">02</span><span class="eyebrow">Цены</span><h2>Честные тарифы, <em>без сюрпризов</em></h2></div>
@@ -306,7 +393,8 @@ footer:hover .big{-webkit-text-stroke-color:rgba(224,164,88,.5)}
     </div>
     <div class="booking" id="booking">
       <div class="bi2 reveal"><span class="eyebrow">Бронирование</span><h3>Выберите даты — мы <em>сразу перезвоним</em></h3><p class="lead">Оставьте заявку, и мы подтвердим наличие дат и подберём формат отдыха.</p>
-        <ul><li><i class="fa-solid fa-bolt"></i>Ответим в течение 15 минут</li><li><i class="fa-solid fa-shield-halved"></i>Без предоплаты на этапе заявки</li><li><i class="fa-solid fa-spa"></i>Баня и гриль-зона уже в тарифе</li></ul></div>
+        <ul><li><i class="fa-solid fa-bolt"></i>Ответим в течение 15 минут</li><li><i class="fa-solid fa-shield-halved"></i>Без предоплаты на этапе заявки</li><li><i class="fa-solid fa-spa"></i>Баня и гриль-зона уже в тарифе</li></ul>
+        <a class="phone" href="tel:+375297226744" style="margin-top:28px"><span class="pi"><i class="fa-solid fa-phone-volume"></i></span><div><small>Быстрее по телефону</small><b>+375 29 722-67-44</b></div></a></div>
       <form class="fc reveal" id="form" novalidate style="--d:.15s">
         <div class="fr"><div class="field"><label for="din">Заезд</label><input type="date" id="din"><span class="err">Выберите дату заезда</span></div><div class="field"><label for="dout">Выезд</label><input type="date" id="dout"><span class="err">Выезд должен быть позже заезда</span></div></div>
         <div class="field"><label>Количество гостей (макс. 5)</label><div class="guests"><button type="button" id="minus" aria-label="Меньше">−</button><output id="gout">2</output><button type="button" id="plus" aria-label="Больше">+</button></div></div>
@@ -339,14 +427,18 @@ footer:hover .big{-webkit-text-stroke-color:rgba(224,164,88,.5)}
   <div class="container">
     <div class="sh reveal"><span class="num">04</span><span class="eyebrow">Контакты</span><h2>Приезжайте <em>в гости</em></h2></div>
     <div class="cg">
-      <div class="map reveal"><iframe title="Карта: окрестности Бреста" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=23.45%2C51.98%2C24.05%2C52.22&layer=mapnik"></iframe><div class="pin"><i class="fa-solid fa-location-dot"></i><div><b>Усадьба «Хвоинка»</b><br><small style="color:var(--muted)">28 км от Бреста, в сосновом лесу</small></div></div></div>
+      <div class="map reveal"><iframe title="Карта: окрестности Бреста" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=23.45%2C51.98%2C24.05%2C52.22&layer=mapnik"></iframe><div class="pin"><i class="fa-solid fa-location-dot"></i><div><b>Усадьба «Хвоинка»</b><br><small style="color:var(--muted)">д. Дубица, ул. Чигуночная, 6 · 28 км трассы Брест — Томашевка</small></div></div></div>
       <div class="reveal" style="--d:.15s">
+        <a class="phone" href="tel:+375297226744" aria-label="Позвонить +375 29 722-67-44">
+          <span class="pi"><i class="fa-solid fa-phone-volume"></i></span>
+          <div><small>Позвоните нам — ответим сразу</small><b>+375 29 722-67-44</b><span>Ирина · нажмите, чтобы позвонить</span></div>
+        </a>
         <div class="cl">
-          <a class="ci" href="tel:+375000000000"><i class="fa-solid fa-phone"></i><div><small>Телефон</small>+375 (00) 000-00-00</div></a>
           <a class="ci" href="https://www.instagram.com/khvoyinka_usadba" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i><div><small>Instagram</small>@khvoyinka_usadba</div></a>
-          <div class="ci"><i class="fa-solid fa-route"></i><div><small>Адрес</small>Брестская область, 28 км от Бреста</div></div>
+          <div class="ci"><i class="fa-solid fa-route"></i><div><small>Адрес</small>
+            <address>225008, Брестская обл., Брестский р-н,<br>д. Дубица, ул. Чигуночная, 6<br><span style="color:var(--muted);font-size:.85rem">28 км трассы Брест — Томашевка</span></address></div></div>
         </div>
-        <div class="ms"><a class="msg tg" href="https://t.me/" target="_blank" rel="noopener"><i class="fa-brands fa-telegram"></i> Telegram</a><a class="msg wa" href="https://wa.me/375000000000" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a></div>
+        <div class="ms"><a class="msg tg" href="https://t.me/" target="_blank" rel="noopener"><i class="fa-brands fa-telegram"></i> Telegram</a><a class="msg wa" href="https://wa.me/375297226744" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a></div>
         <h3 class="faqt">Частые вопросы</h3>
         <div id="faq">
           <div class="fq"><button aria-expanded="false">Что входит в проживание?<i class="fa-solid fa-plus"></i></button><div class="fa"><p>Проживание до 5 человек, пользование гриль-зоной и 3 часа бани.</p></div></div>
@@ -362,7 +454,7 @@ footer:hover .big{-webkit-text-stroke-color:rgba(224,164,88,.5)}
 
 <footer><div class="container"><div class="big" aria-hidden="true">Хвоинка</div>
   <div class="fro"><span>© <span id="year"></span> Усадьба «Хвоинка». Все права защищены.</span>
-  <div class="so"><a href="https://www.instagram.com/khvoyinka_usadba" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a><a href="https://t.me/" target="_blank" rel="noopener" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a><a href="https://wa.me/375000000000" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a></div></div></div></footer>
+  <div class="so"><a href="https://www.instagram.com/khvoyinka_usadba" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a><a href="https://t.me/" target="_blank" rel="noopener" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a><a href="https://wa.me/375297226744" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a></div></div></div></footer>
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Просмотр фото"><button class="x" aria-label="Закрыть"><i class="fa-solid fa-xmark"></i></button><button class="pv" aria-label="Назад"><i class="fa-solid fa-chevron-left"></i></button><img alt=""><button class="nx" aria-label="Вперёд"><i class="fa-solid fa-chevron-right"></i></button><p></p></div>
 
@@ -463,6 +555,13 @@ form.addEventListener('submit',e=>{e.preventDefault();let ok=true;
 $('#mc').onclick=cm;modal.addEventListener('click',e=>{if(e.target===modal)cm()});
 addEventListener('keydown',e=>{if(e.key==='Escape'){cm();close();tm(false)}
  if(lb.classList.contains('show')){if(e.key==='ArrowRight')show(cur+1);if(e.key==='ArrowLeft')show(cur-1)}});
+
+/* прожектор на карточках цен */
+$$('.tariff').forEach(c=>{
+ const mv=e=>{const r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px')};
+ c.addEventListener('pointermove',mv);
+ c.addEventListener('pointerleave',()=>{c.style.setProperty('--mx','50%');c.style.setProperty('--my','0%')});
+});
 })();
 </script>
 </body>
