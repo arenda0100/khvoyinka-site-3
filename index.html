@@ -412,6 +412,7 @@ footer:hover .big{-webkit-text-stroke-color:rgba(224,164,88,.5)}
         <div class="fr"><div class="field"><label for="nm">Ваше имя</label><input type="text" id="nm" placeholder="Анна" autocomplete="name"><span class="err">Введите имя</span></div><div class="field"><label for="ph">Телефон</label><input type="tel" id="ph" placeholder="+375 29 000 00 00" autocomplete="tel" inputmode="tel"><span class="err">Введите корректный номер</span></div></div>
         <div class="field"><label for="cm">Пожелания</label><textarea id="cm" placeholder="Например: отмечаем день рождения"></textarea></div>
         <div class="est"><div><small>Ориентировочная стоимость</small><span id="en" style="font-size:.82rem;color:#c3c9c0">Выберите даты</span></div><b id="ep">—</b></div>
+        <input type="text" id="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0">
         <button type="submit" class="btn btn-p btn-block"><i class="fa-regular fa-paper-plane"></i> Отправить заявку</button>
         <p class="note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных</p>
       </form>
@@ -562,12 +563,28 @@ $$('[data-tariff]').forEach(b=>b.addEventListener('click',()=>{const want=b.data
 const bad=(el,b)=>{el.closest('.field').classList.toggle('error',b);return !b};
 $$('input',form).forEach(i=>i.addEventListener('input',()=>i.closest('.field')?.classList.remove('error')));
 const modal=$('#modal'),cm=()=>{modal.classList.remove('show');document.body.classList.remove('lock')};
-form.addEventListener('submit',e=>{e.preventDefault();let ok=true;
+
+/* отправка заявки в Telegram через /api/lead */
+form.addEventListener('submit',async e=>{e.preventDefault();let ok=true;
  ok=bad(din,!din.value)&&ok;ok=bad(dout,!dout.value||(din.value&&dout.value<=din.value))&&ok;
  ok=bad($('#nm'),$('#nm').value.trim().length<2)&&ok;ok=bad($('#ph'),$('#ph').value.replace(/\D/g,'').length<9)&&ok;
  if(!ok){$('.field.error input',form)?.focus();return}
- $('#mtx').textContent=`${$('#nm').value.trim()}, мы свяжемся с вами в ближайшее время для подтверждения дат.`;
+ const btn=$('button[type=submit]',form),label=btn.innerHTML,name=$('#nm').value.trim();
+ btn.disabled=true;btn.textContent='Отправляем…';
+ try{
+  const res=await fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},
+   body:JSON.stringify({name,phone:$('#ph').value.trim(),checkin:din.value,checkout:dout.value,guests:g,
+    options:$$('.chip input:checked',form).map(i=>i.nextElementSibling.textContent.trim()).join(', '),
+    estimate:$('#ep').textContent,comment:$('#cm').value.trim(),website:$('#hp').value})});
+  if(!res.ok)throw new Error();
+ }catch{
+  btn.disabled=false;btn.innerHTML=label;
+  alert('Не удалось отправить заявку. Позвоните нам: +375 29 722-67-44');return;
+ }
+ btn.disabled=false;btn.innerHTML=label;
+ $('#mtx').textContent=`${name}, мы свяжемся с вами в ближайшее время для подтверждения дат.`;
  modal.classList.add('show');document.body.classList.add('lock');form.reset();g=2;gout.textContent=2;est()});
+
 $('#mc').onclick=cm;modal.addEventListener('click',e=>{if(e.target===modal)cm()});
 addEventListener('keydown',e=>{if(e.key==='Escape'){cm();close();tm(false)}
  if(lb.classList.contains('show')){if(e.key==='ArrowRight')show(cur+1);if(e.key==='ArrowLeft')show(cur-1)}});
